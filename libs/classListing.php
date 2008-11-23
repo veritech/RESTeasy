@@ -11,4 +11,6 @@ require_once('FRModel.php');
 
 require_once('FRXMLHelper.php');
 
+require_once('FRXMLElement.php');
+
 ?>
