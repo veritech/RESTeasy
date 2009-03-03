@@ -1,5 +1,7 @@
 <?php
-
+	/*
+		Jonathan Dalrymple
+	*/
 	//TODO
 	// How does the class deal with text only elements?
 
@@ -29,7 +31,7 @@
 		//Does this element have children
 		var $hasChildren = false;
 		
-		function FRXMLElement( $name, $content = null, $attributes = array(), $namespace = null ){
+		function FRXMLElement( $name = null, $content = null, $attributes = array(), $namespace = null ){
 			$this->name = $name;
 			
 			if( isset($content) ){
@@ -74,6 +76,63 @@
 			unset($this->content);
 			
 			return true; 
+		}
+		
+		function findChild($name){
+			
+			foreach( $this->children as $index=>$obj ){
+				if( $name === $obj->name ){
+					
+					return $this->children[$index];
+				}
+			}
+			
+			return false;
+		}
+		
+		function findNextChild( $name ){
+			
+			if( !isset($this->_findNextCounter) ){
+				$this->_findNextCounter = 0;
+			} 
+			
+			foreach( $this->children as $index=>$obj ){
+				if( $name == $obj->name && $index > $this->_findNextCounter ){
+					return $this->children[$index];
+				}
+			}
+			
+		}
+		
+		function findChildren( $name ){
+			
+			$retVal = array();
+			
+			foreach( $this->children as $index=>$obj ){
+				if( $name === $obj->name ){
+					
+					$retVal[] = $this->children[$index];
+				}
+			}
+			
+			return $retVal;
+		}
+		
+		function firstChild(){
+			if( $this->hasChildren ){
+				return $this->children[0];
+			}else{
+				return false;
+			}
+		}
+		
+		function lastChild(){
+			if($this->hasChildren ){
+				return $this->children[ count($this->children) - 1 ];
+			}
+			else{
+				return false;
+			}
 		}
 		
 		//Removes the first child
@@ -128,6 +187,10 @@
 			return $this->name;
 		}
 		
+		function setName( $name ){
+			$this->name = $name;
+		}
+		
 		function content(){
 			
 			return $this->content;
@@ -154,7 +217,7 @@
 			if( $this->hasChildren && !isset($this->content) ){
 				foreach( $this->children as $index=>$obj ){
 	
-					$retVal[] = $obj->serialize();
+					$retVal[] = $obj->serialize($lineEndings);
 				}
 			}elseif( !$this->hasChildren && isset($this->content) ){
 				

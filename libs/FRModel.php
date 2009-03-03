@@ -4,10 +4,10 @@
 	
 	Mirrors the functionallity provided by CakePHP's ORM layer
 	
+	* Jonathan Dalrymple
 */
 
-//Takes advantage of the ADODB library
-require_once('../adodb/adodb.inc.php');
+
 
 define('FR_UPDATE','UPDATE %s SET(%s) WHERE %s');
 define('FR_INSERT','INSERT INTO %s (%s) VALUES (%s)');
@@ -35,7 +35,7 @@ class FRModel extends FRObject{
 		//Setup the connection
 		$this->DB = &ADONewConnection('mysql');
 		 
-		$this->DB->PConnect('127.0.0.1:8889','root','root','caketart');
+		$this->DB->PConnect('127.0.0.1:8889','root','root','EWT');
 
 	}
 	

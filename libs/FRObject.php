@@ -1,5 +1,7 @@
 <?php
-
+	/*
+		Jonathan Dalrymple
+	*/
 class FRObject{
 	
 	function checkAndReplace( $check, $replace ){
@@ -31,13 +33,14 @@ class FRObject{
 	
 	function debug( &$obj, $title=null ){
 		
+		/*
 		print '<div>';
 		if( isset($title) ){
 			print '<h2>'.$title.'</h2>';
 		}
 		print_r( $obj );
 		print '</div>';
-		
+		*/
 	}
 
 }
