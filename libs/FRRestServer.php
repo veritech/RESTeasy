@@ -11,8 +11,9 @@ define('FR_DELETE_REQUEST','DELETE');
 
 class FRRestServer extends FRObject{
 	
+	var $returnXML = true;
+	
 	function FRRestServer(){
-		//echo 'Test';
 		//Determine Request type
 		switch( $_SERVER['REQUEST_METHOD'] ){
 			
@@ -64,9 +65,11 @@ class FRRestServer extends FRObject{
 	
 	//Filter all page output through a function
 	function output( $in ){
-		
-		header('Content-Type: text/xml;');
-		print FRXMLHelper::header();
+		if( $this->returnXML ){
+			header('Content-Type: text/xml;');
+		}
+
+		//print FRXMLHelper::header();
 		print $in;
 	}
 }

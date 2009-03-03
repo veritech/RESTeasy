@@ -4,11 +4,12 @@
 // Based on Lars Marius Garshol's Python XMLWriter class
 // See http://www.xml.com/pub/a/2003/04/09/py-xml.html
 
-class XmlWriter {
+//Class had to be renamed to avoid conflict
+class XmlAuthor {
     var $xml;
     var $indent;
     var $stack = array();
-    function XmlWriter($indent = '  ') {
+    function XmlAuthor($indent = '  ') {
         $this->indent = $indent;
         $this->xml = '<?xml version="1.0" encoding="utf-8"?>'."\n";
     }

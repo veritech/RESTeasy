@@ -6,7 +6,7 @@ require_once('adodb/adodb.inc.php');
 
 require_once('libs/FRObject.php');
 
-// require_once('libs/XmlWriter.php');
+require_once('libs/XmlAuthor.php');
 
 require_once('libs/FRXMLHelper.php');
 

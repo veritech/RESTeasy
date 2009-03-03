@@ -4,6 +4,8 @@
 	*/
 class FRObject{
 	
+	var $debug = false;
+	
 	function checkAndReplace( $check, $replace ){
 		
 		if( !isset($check) ){
@@ -33,14 +35,14 @@ class FRObject{
 	
 	function debug( &$obj, $title=null ){
 		
-		/*
-		print '<div>';
-		if( isset($title) ){
-			print '<h2>'.$title.'</h2>';
+		if( $this->debug ){
+			print '<div>';
+			if( isset($title) ){
+				print '<h2>'.$title.'</h2>';
+			}
+			print_r( $obj );
+			print '</div>';
 		}
-		print_r( $obj );
-		print '</div>';
-		*/
 	}
 
 }
