@@ -2,9 +2,7 @@
 /*
 	Location Controller
 */
-class LocationController extends FRRestServer{
-	
-	var $models = array();
+class LocationController extends FRController{
 	
 	function LocationController(){
 
@@ -16,12 +14,15 @@ class LocationController extends FRRestServer{
 
 	}
 	
+	/*
+		Override the Default GET method
+	*/
 	function GET(){
 		
 		//print_r( $models );
 		$data = $this->models['Location']->findAll();
 		
-		$this->returnXML = false;
+		//$this->returnXML = false;
 		
 		$xml = new XMLAuthor();
 
@@ -41,7 +42,7 @@ class LocationController extends FRRestServer{
 		
 		return $xml->getXml();
 	}
-	
+
 	
 }
 ?>

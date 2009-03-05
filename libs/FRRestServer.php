@@ -2,7 +2,6 @@
 	/*
 		Jonathan Dalrymple
 	*/
-//require_once('XmlWriter.php');
 
 define('FR_GET_REQUEST','GET');
 define('FR_POST_REQUEST','POST');
@@ -34,6 +33,14 @@ class FRRestServer extends FRObject{
 				break;
 		}
 		
+	}
+	
+	function get_put_vars(){
+		$retVal = array();
+		
+		parse_str(file_get_contents("php://input"),$retVal);
+		
+		return $retVal;
 	}
 	
 	

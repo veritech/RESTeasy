@@ -1,0 +1,22 @@
+body{
+	background: #222;
+	margin: 1em auto;
+}
+#hd,#bd,#ft{
+	margin: 0.5em 0;
+}
+
+.panel, #sidebar{
+	background: #eee;
+	font-size: 123.1%;
+	padding: 1em;
+	border: #999 thin solid;
+}
+
+.collapsible .panel{
+	
+	
+}
+
+
+

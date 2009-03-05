@@ -14,11 +14,35 @@
 			curl_setopt( $this->curl, CURLOPT_RETURNTRANSFER, true );
 			
 			//Temporary
-			// curl_setopt( $this->curl, CURLOPT_PORT, 8888 );
+			curl_setopt( $this->curl, CURLOPT_PORT, 8888 );
 			
 		}
 		
-		function GET(){
+		/*
+		* Return CURL data with meta in an array
+		*
+		*/
+		function output( &$content ){
+			
+			$retVal = curl_getinfo( $this->curl );
+			
+			$retVal['data'] = $content;
+			
+			return $retVal;
+		}
+		
+		function arrayToFormEncodedString( $array ){
+			
+			$retVal = array();
+			
+			foreach( $data as $k=>$v ){
+				$retVal[] = sprintf('%s=%s',$k, $v);
+			}
+			
+			return implode('&',$retVal);
+		}
+		
+		function GET($data=null){
 			
 			curl_setopt($this->curl, CURLOPT_HTTPGET, true );
 			
@@ -26,24 +50,18 @@
 			
 			//curl_close($this->curl);
 			
-			return $retVal;
+			return $this->output($retVal);
 		}
 		
-		function POST($data){
+		function POST($data = null){
 			
 			curl_setopt($this->curl, CURLOPT_POST, true );
 			
 			//if we get data as an array we break it down, as KVC
 			if( is_array($data) ){
+
+				curl_setopt($this->curl, CURLOPT_POSTFIELDS, arrayToFormEncodedString( $data ));
 				
-				foreach( $data as $k=>$v ){
-					$formEncoded[] = sprintf('%s=%s',$k, $v);
-				}
-					
-				curl_setopt($this->curl, CURLOPT_POSTFIELDS, implode('&',$formEncoded) );
-				
-				//Destroy
-				unset($formEncoded);
 			}
 			else{
 				curl_setopt($this->curl, CURLOPT_POSTFIELDS, $data );
@@ -54,10 +72,10 @@
 			//Clean up
 			//curl_close($this->curl);
 			
-			return $retVal;
+			return $this->output($retVal);
 		}
 		
-		function PUT($data){
+		function PUT($data = null){
 			
 			//The specified method for doing PUT's in php is to use a stream, however i wanted to avoid writing to disk,
 			//I found the following advice
@@ -69,17 +87,17 @@
 			
 			//curl_close($this->curl);
 			
-			return $retVal;
+			return $this->output($retVal);
 		}
 		
-		function DELETE(){
+		function DELETE($data = null){
 			curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, 'DELETE' );
 			
 			$retVal = curl_exec($this->curl);
 			
 			//curl_close($this->curl);
 			
-			return $retVal;
+			return $this->output($retVal);
 		}
 		
 	}
