@@ -2,8 +2,20 @@ body{
 	background: #222;
 	margin: 1em auto;
 }
+
 #hd,#bd,#ft{
 	margin: 0.5em 0;
+}
+
+#sidebar{
+	text-align:center;
+}
+
+#sidebar h2{
+	text-align:left;
+}
+.collapsible .panel{
+	
 }
 
 .panel, #sidebar{
@@ -11,11 +23,19 @@ body{
 	font-size: 123.1%;
 	padding: 1em;
 	border: #999 thin solid;
+	margin-bottom: 0.5em;	
 }
 
-.collapsible .panel{
-	
-	
+#sidebar a{
+	display:block;
+}
+#sidebar a:hover{
+	color: #000;
+}
+
+.textbox{
+	width:98%;
+	margin: 0 auto;
 }
 
 

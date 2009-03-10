@@ -15,7 +15,7 @@ require_once('libs/FRXMLElement.php');
 
 require_once('libs/XPath.class.php');
 
-require_once('libs/FRXMLParser.php');
+//require_once('libs/FRXMLParser.php');
 
 require_once('libs/FRHTTPError.php');
 

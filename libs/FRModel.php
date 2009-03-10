@@ -7,7 +7,7 @@
 	* Jonathan Dalrymple
 */
 
-define('FR_UPDATE','UPDATE %s SET(%s) WHERE %s');
+define('FR_UPDATE','UPDATE %s SET %s WHERE %s');
 define('FR_INSERT','INSERT INTO %s (%s) VALUES (%s)');
 define('FR_SELECT','SELECT %s FROM %s %s');
 define('FR_DELETE','DELETE FROM %s %s');
@@ -41,10 +41,16 @@ class FRModel extends FRObject{
 	function _formatValue( $val ){
 		
 		if( is_string($val) ){
-			$val = "'$val'"; 
+			return "'$val'"; 
 		}
-		
-		return $val;
+		elseif( is_numeric($val) ){
+			return $val;
+		}
+		elseif( is_array($val) ){
+			
+			return implode(',',$val);
+			
+		}
 	}
 	
 	function _formatFields( $input = null ){
@@ -168,9 +174,14 @@ class FRModel extends FRObject{
 		//build query
 		if( isset($this->ID) ){
 			
+			//Remove the id from the set
+			// if( array_key_exists('id',$data) ){
+			// 	unset( $data['id'] );
+			// }
+			
 			foreach( $data as $k=>$v ){
 
-				$vals[] = "'$k'=" . $this->_formatValue($v);
+				$vals[] = "$k=" . $this->_formatValue($v);
 
 			}
 			

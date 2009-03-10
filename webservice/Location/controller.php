@@ -42,7 +42,71 @@ class LocationController extends FRController{
 		
 		return $xml->getXml();
 	}
-
+	
+	//Create
+	function PUT(){
+		
+		$requiredAttributes = array(
+			''
+			);
+		
+		$passedAttributes = $this->get_put_vars();
+		
+		$this->models['Location']->save( $passedAttributes );
+		
+		$xml = new XMLAuthor();
+		
+		$xml->push('Location');
+		
+		foreach( $passedAttributes  as $k=>$v ){
+			
+			$xml->element($k,$v);
+			
+		}
+		
+		$xml->pop();
+		
+		return $xml->getXML();
+		
+	}
+	
+	//Update
+	function POST(){
+/*
+		$requiredAttributes = array(
+			'id'
+			);
+*/
+			
+		if( array_key_exists('id',$_POST) ){
+			
+			//Set the id to make the model update rather than insert
+			$this->models['Location']->ID = $_POST['id'];
+			$this->models['Location']->save( $_POST );
+			
+			$xml = new XMLAuthor();
+			
+			$xml->push('Location');
+			
+			foreach( $_POST as $k=>$v ){
+				$xml->element( $k, $v );
+			}
+			
+			$xml->pop();
+			
+			return $xml->getXML();
+		}
+		else{
+			return FRHTTPError::err400( null, 'Invalid Arguments');
+		}
+	}
+	
+	function DELETE(){
+		
+		$id = $_GET['id'];
+		
+		$this->models['location']->del( $id );
+	}
 	
 }
 ?>
