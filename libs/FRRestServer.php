@@ -40,6 +40,8 @@ class FRRestServer extends FRObject{
 		
 		parse_str(file_get_contents("php://input"),$retVal);
 		
+		$this->debug($retVal,'FRRestServer->get_put_vars');
+		
 		return $retVal;
 	}
 	

@@ -19,22 +19,46 @@ class LocationController extends FRController{
 	*/
 	function GET(){
 		
-		//print_r( $models );
-		$data = $this->models['Location']->findAll();
-		
-		//$this->returnXML = false;
+		//Search the text
+		if( array_key_exists('q',$_GET) ){
+			//'description LIKE \'%' + $_GET['q'] +'%\''
+			$data = $this->models['Location']->findAll( array(
+				'conditions'=> 'description LIKE \'%'.$_GET['q'].'%\''
+				)
+			);
+			
+			//$this->returnXML = false;
+		}
+		//Search by id
+		elseif( array_key_exists('id', $_GET) ){
+			$data = $this->models['Location']->findAll( array(
+				'conditions'=> 'id ='.$_GET['id']
+				)
+			);
+		}
+		else{
+			$data = $this->models['Location']->findAll();
+		}
 		
 		$xml = new XMLAuthor();
 
-		$xml->push("Locations");
+		$xml->push("locations");
+		
+		if( count($data) > 0){
+			$keys = array_keys($data[0]);
+		}
 		
 		foreach( $data as $row ){
-			$xml->push('Location');
+			$xml->push('location');
 			//print_r($row);
-			$xml->element('id',$row['id']);
-			$xml->element('country_id', $row['country_id']);
-			$xml->element('region_id', $row['region_id']);
-			$xml->element('description',$row['description']);
+			
+			foreach( $keys as $k ){
+				$xml->element($k, $row[$k]);
+			}
+			// $xml->element('id',$row['id']);
+			// $xml->element('country_id', $row['country_id']);
+			// $xml->element('region_id', $row['region_id']);
+			// $xml->element('description',$row['description']);
 			$xml->pop();
 		}
 		
@@ -52,11 +76,13 @@ class LocationController extends FRController{
 		
 		$passedAttributes = $this->get_put_vars();
 		
+		$this->debug( $passedAttributes, 'LocationController->PUT, passedAttributes');
+		
 		$this->models['Location']->save( $passedAttributes );
 		
 		$xml = new XMLAuthor();
 		
-		$xml->push('Location');
+		$xml->push('location');
 		
 		foreach( $passedAttributes  as $k=>$v ){
 			
@@ -86,7 +112,7 @@ class LocationController extends FRController{
 			
 			$xml = new XMLAuthor();
 			
-			$xml->push('Location');
+			$xml->push('location');
 			
 			foreach( $_POST as $k=>$v ){
 				$xml->element( $k, $v );

@@ -79,6 +79,8 @@ class FRRestClient extends FRObject{
 		
 		$response = $this->conn->PUT($args);
 		
+		$this->debug($response,'FRRestClient->Create');
+		
 		if( $response['content_type'] == 'text/xml;' ){
 			
 			$xml = $this->_parse( $response['data'] );

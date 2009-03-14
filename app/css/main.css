@@ -18,7 +18,7 @@ body{
 	
 }
 
-.panel, #sidebar{
+.panel{
 	background: #eee;
 	font-size: 123.1%;
 	padding: 1em;
@@ -33,9 +33,22 @@ body{
 	color: #000;
 }
 
+h2{
+	font-size:123.1%;
+	font-weight:bold;
+}
+
 .textbox{
 	width:98%;
 	margin: 0 auto;
+}
+
+form.boxlayout{
+	display:block;
+}
+
+form.boxlayout label{
+	font-weight:bold;
 }
 
 

@@ -4,7 +4,7 @@
 require_once('simpletest/autorun.php');
 
 //Classes
-require_once('../libs/classListing.php');
+require_once('../classListing.php');
 
 class FRModelTest extends UnitTestCase{
 
@@ -15,7 +15,7 @@ class FRModelTest extends UnitTestCase{
 		//Singleton
 		if( !isset($this->_model) ){
 			$this->_model = new FRModel();
-			$this->_model->tableName = 'cake_tags';
+			$this->_model->tableName = 'Locations';
 		}
 		
 		return $this->_model;
@@ -46,14 +46,15 @@ class FRModelTest extends UnitTestCase{
 		$model = $this->getModel();
 		
 		$params = array(
-			'conditions'=>'id > 10',
+			'conditions'=>'id > 5',
 			'limit'=>10
 			);
 		
 		$result = $model->findAll($params);
 		
 		$this->assertTrue( is_array($result) );
-		$this->assertTrue( count($result) == 10);
+		$this->assertTrue( count($result) < 10);
+		//$this->assertTrue( count($result) == 10);
 		
 		//Test with bad params, no records returned
 		
@@ -87,9 +88,13 @@ class FRModelTest extends UnitTestCase{
 	function testSave(){
 		$model = $this->getModel();
 		
-		$result = $model->save( array('username'=>'jonathan') );
+		$result = $model->save( array(
+			'description'=>'TestLocation'
+			)
+		);
 		
-		$this->assertTrue( $result );
+		$this->assertTrue( is_array($result) );
+
 	}
 }
 

@@ -34,7 +34,9 @@ class FRModel extends FRObject{
 		$this->DB = &ADONewConnection('mysql');
 		 
 		$this->DB->PConnect('127.0.0.1:8889','root','root','EWT');
-
+		
+		//Set the fetch mode
+		$this->DB->setFetchMode(ADODB_FETCH_ASSOC);
 	}
 	
 	//Pass the values though this formatter
@@ -54,26 +56,28 @@ class FRModel extends FRObject{
 	}
 	
 	function _formatFields( $input = null ){
-
+		
+		echo $input;
 		if( is_array( $input) ){
-			return implode(',', $arr[FR_FIELDS] );
+			return implode(',', $input );
 		}
 		elseif( is_string( $input) ){
 			return $input;
 		}
-		elseif( $input === null ){
+		else{
 			return '*';
 		}
 	}
 	
 	function _formatConditions( $input ){
+	
 		if( is_array( $input) ){
-			$retVal =  implode(',', $arr[FR_FIELDS] );
+			$retVal =  implode(',', $input );
 		}
 		elseif( is_string( $input) ){
 			$retVal = $input;
 		}
-		elseif( $input === null ){
+		else{
 			return '';
 		}
 		
@@ -111,7 +115,7 @@ class FRModel extends FRObject{
 				$retVal[] = $row;
 			}
 			
-			$this->debug(count($retVal));
+			//$this->debug(count($retVal));
 			
 			return $retVal;
 			
@@ -124,11 +128,25 @@ class FRModel extends FRObject{
 
 	}
 	
-	function findAll( $params = array('fields'=>null,'conditions'=>null ) ){
+	/*
+	* findAll
+	* 
+	* @param array params associatative array containing two indexs fields, conditions
+	*/
+	function findAll( $params = array() ){
 		
-		@$fields = $this->_formatFields( $params['fields']);
-			
-		@$conditions = $this->_formatConditions($params['conditions']);
+		$conditions = '';
+		
+		if( array_key_exists('fields',$params) ){
+			$fields = $this->_formatFields( $params['fields']);
+		}
+		else{
+			$fields = $this->_formatFields();
+		}
+		
+		if( array_key_exists('conditions',$params) ){
+			$conditions = $this->_formatConditions($params['conditions']);
+		}
 	
 		if( array_key_exists('order', $params) ){
 			$conditions .= ' ORDER ' . $this->_formatOrder( $param['order'] );
