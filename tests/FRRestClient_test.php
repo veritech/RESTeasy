@@ -42,7 +42,7 @@ class FRRestClientTest extends UnitTestCase{
 	function testDelete(){
 		$result = $this->client->delete();
 		
-		$this->assertNotNull( $result );
+		$this->assertFalse( $result );
 	}
 
 }
