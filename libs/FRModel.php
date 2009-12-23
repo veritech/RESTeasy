@@ -131,7 +131,10 @@ class FRModel extends FRObject{
 	/*
 	* findAll
 	* 
+	* Find all records that match the given the critera
+	* 
 	* @param array params associatative array containing two indexs fields, conditions
+	* @return Mixed If sucessful returns Associative array containing the result set, returns false is query failed
 	*/
 	function findAll( $params = array() ){
 		
@@ -160,7 +163,14 @@ class FRModel extends FRObject{
 		return $this->query( $query );
 	}
 	
-	
+	/*
+	* find
+	* 
+	* Gets the first result from the 
+	* 
+	* @param array params associatative array containing two indexs fields, conditions
+	* @return Mixed If sucessful returns Associative array containing the result set, returns false is query failed
+	*/
 	function find( &$params = null ){
 		
 		$params['limit'] = 1;
@@ -178,6 +188,11 @@ class FRModel extends FRObject{
 		
 	}
 
+	/*
+	*	Read
+	* 	
+	* 	@param
+	*/
 	function read( $id ){
 		
 		$params['conditions'] = $this->PK.' = '.$id;
@@ -185,7 +200,14 @@ class FRModel extends FRObject{
 		return $this->find( $params );
 		
 	}
-
+	
+	/*
+	* Save
+	* 
+	* @param data An associative array containing with the following format, field=>value
+	* 
+	* @return True on success, and false on failure
+	*/
 	// Save data to the database
 	function save( $data ){
 
@@ -221,14 +243,39 @@ class FRModel extends FRObject{
 		
 		$this->debug($query, 'Query');
 		
-		return $this->query( $query );
+		$this->query( $query );
+		
+		//print 'Affected rows '. $this->DB->Affected_Rows();
+		if( $this->DB->Affected_Rows() > 0 ){
+			 
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
+	/*
+	* Del
+	* 
+	* Delete a record in the database
+	* 
+	* @param id if its a numeric delete the id
+	*/
 	function del( $id ){
 		
-		$this->query( sprintf(FR_DELETE,$this->tableName, 'WHERE '.$this->PK.'='.$id) );
+		if( is_numeric($id) ){
+			$this->query( sprintf(FR_DELETE,$this->tableName, 'WHERE '.$this->PK.'='.$id) );
+		}
+		// elseif( is_string($id) ){
+		// 	$this->query( sprintf(FR_DELETE,$this->tableName, 'WHERE '.$id) );
+		// }
 		
-		return false;
+		
+		if( $this->DB->Affected_Rows() > 0 ){
+			return true;
+		}else{
+			return false;
+		}
 	}
 }
 
