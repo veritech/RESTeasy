@@ -2,15 +2,22 @@
 	//Testing frameowrk
 	require_once( dirname(__FILE__).'/simpletest/autorun.php');
 	
+	//Tests
+	require_once("FRHTTP_test.php");
+	require_once("FRModel_test.php");
+	require_once("FRRestClient_test.php");
+	//require_once("FRRestServer_test.php");
 	
-	class AllTests extends TestSuite{
-		function AllTests(){
-			$this->TestSuite('All Tests');
-			$this->addTestFile('FRModel_test.php');
-			$this->addTestFile('FRRestServer_test.php');
-			$this->addTestFile('FRClientServer.php');
-			//$this->addTestFile('FRXMLHelper_test.php');
-			//$this->run();
-		}
-	}	
+	//Group Test
+	$test = &new GroupTest('All Tests');
+	
+	//Add test cases
+	$test->addTestCase( new FRHTTPTest() );
+	$test->addTestCase( new FRModelTest() );
+	$test->addTestCase( new FRRestClientTest() );
+	//$test->addTestCase( new FRRestServer() );
+	
+	//Run test cases
+	$test->run( new HTMLReporter() );
+	
 ?>
