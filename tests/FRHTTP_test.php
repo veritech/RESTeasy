@@ -13,7 +13,7 @@ class FRHTTPTest extends UnitTestCase{
 	
 	function setUp(){
 		
-		$this->client = new FRHTTP('http://localhost:8888/ewt/app/Location/');
+		$this->client = new FRHTTP('http://localhost:8888/ewt/webservice/Location/');
 	}
 	
 	function tearDown(){
@@ -33,7 +33,8 @@ class FRHTTPTest extends UnitTestCase{
 	function testPOST(){
 		$result = $this->client->POST();
 		
-		$this->assertEqual($result['http_code'],'200');
+		//Since no arguments have been provided failure code 400 is expected
+		$this->assertEqual($result['http_code'],'400');
 	}
 	
 	function testPUT(){
