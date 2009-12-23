@@ -22,7 +22,7 @@ class FRRestClient extends FRObject{
 	//		Processor Functions
 	//*********************************************//
 	/*
-	* Processor Functions, can be overridden in a subclass to return custom results
+	* Processor Functions, should overridden in a subclass to return custom results
 	* 
 	* By default they return the passed XPath object unchanged
 	* 
