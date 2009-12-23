@@ -35,6 +35,10 @@
 		
 		function arrayToFormEncodedString( $array ){
 			
+			if( !is_array($array) ){
+				return '';
+			}
+			
 			$retVal = array();
 			
 			foreach( $array as $k=>$v ){
