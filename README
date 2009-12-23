@@ -1,0 +1,48 @@
+Lightweight RESTFUL Webservice Framework
+
+
+About >>>
+Initially designed to be part of my 3rd Year Software Engineering Degree.
+
+This is lightweight framework that makes it easy to make RESTful endpoints. Currently it only outputs XML however it's MVC design means an adapter could be made to alter the output format.
+
+It uses the Adodb (http://adodb.sourceforge.net/) Library as a database abstraction, which in turn is encapsulated within a Model class
+
+It also uses the php.XPath class to provide a nice OO interface to handling XML files submitted to the server.
+
+Lastly it has Unit tests for each of the library classes, the test harness is provided by php SimpleTest
+
+Due to restrictions on the university servers, i built the framework assuming that Modrewrite was not available so a folder structure is used to simulate this
+
+Source Layout >>>
+
+adodb/		The adodb src files
+app/		The files for the HTML front end to the example service
+libs/		The framework files
+PhpXPath-3	The PhpXPath framework
+tests/		Tests for the framework files
+webservice	The example webservice that uses the framework files
+
+How it works >>>
+
+Each node consists of three files
+
+controller.php
+index.php
+model.php
+
+controller.php Handles the incoming requests. It inherits dispatching code from it's parent, and requires the users to implement functions named after the the HTTP verb(s) that they wish to respond to.
+
+index.php Acts as a simple bootstraping script, uniting the other files in the resource, initstaniating the controllers, so they can respond to a request.
+
+model.php Simple ORM, modelled on CakePHP ORM layer, this class would establish the name of the table, and any custom Model layer methods that would need to be implemented.
+
+Example of request handling
+
+url  http://localhost/EWT/webservice/Location
+
+This endpoint responds to GET,POST, PUT, and DELETE requests, it will output XML for each
+
+
+Jonathan Dalrymple
+jonathan@float-right.co.uk
