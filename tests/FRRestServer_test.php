@@ -5,7 +5,7 @@ require_once('simpletest/autorun.php');
 //Classes
 require_once('../classListing.php');
 
-class FRRestServerTest extends WebTestCase{
+class FRRestServerTest {
 	
 	function testGET(){
 		$this->assertTrue( true );
