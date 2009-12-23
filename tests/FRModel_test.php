@@ -46,15 +46,14 @@ class FRModelTest extends UnitTestCase{
 		$model = $this->getModel();
 		
 		$params = array(
-			'conditions'=>'id > 5',
-			'limit'=>10
+			'conditions'=>'id > 2',
+			'limit'=>5
 			);
 		
 		$result = $model->findAll($params);
 		
 		$this->assertTrue( is_array($result) );
-		$this->assertTrue( count($result) < 10);
-		//$this->assertTrue( count($result) == 10);
+		$this->assertTrue( count($result) == 5);
 		
 		//Test with bad params, no records returned
 		
@@ -85,16 +84,31 @@ class FRModelTest extends UnitTestCase{
 		$this->assertTrue( count($result) < 1 );
 	}
 	
-	function testSave(){
+	function testSaveNew(){
 		$model = $this->getModel();
 		
+		//$model->ID = 49;
+		
 		$result = $model->save( array(
+			'country_id' => 1,
+			'region_id' => 1,
+			'latitude' => 0.0000,
+			'longitude' => 0.0000,
+			'zoomLevel'=> 1,
 			'description'=>'TestLocation'
 			)
 		);
 		
-		$this->assertTrue( is_array($result) );
+		$this->assertTrue( $result );
 
+	}
+	
+	function testDelete(){
+		
+		$model = $this->getModel();
+		
+		$this->assertFalse( $model->del( 49) );
+		
 	}
 }
 
