@@ -8,6 +8,10 @@
 		<input name="country_id" type="text" value="" />
 	</div>
 	<div>
+		<label for="region_id">Region ID</label>
+		<input name="region_id" type="text" value="" />
+	</div>
+	<div>
 		<label for="latitude">Latitude</label>
 		<input name="latitude" type="text" value="" />
 	</div>

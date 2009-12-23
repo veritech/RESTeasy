@@ -10,12 +10,7 @@
 		
 		
 		function createResultProcessor( $xml ){
-			
-			//$retArr = array();
-			//print $xml->exportAsHTML();
-			//$size = count($xml->evaluate(''));
-			
-			
+
 			return true;
 		}	
 	

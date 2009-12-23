@@ -45,6 +45,7 @@ h2{
 
 form.boxlayout{
 	display:block;
+	text-align:center;
 }
 
 form.boxlayout label{
