@@ -9,7 +9,7 @@
 		
 		$location = $locations->getDescription( $_GET['id'] );
 		
-		$data = $articles->get( $_GET['id'] );
+		$data = $articles->read( array('id'=>$_GET['id'] ) );
 	}
 	
 	
@@ -33,7 +33,7 @@
 	<body>
 		<div id="doc3">
 		   <div id="hd" class="panel">
-		   		Points of interest
+		   		<a href="index.php">Points of interest</a> > Article Search Results
 		   </div> 
 		   <div id="bd">
 				<div id="searchBar" class="panel">

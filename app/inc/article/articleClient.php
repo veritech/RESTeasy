@@ -8,32 +8,24 @@ class ArticleClient extends FRRestClient{
 		parent::FRRestClient('http://localhost:8888/ewt/webservice/articles/');
 	}
 	
-	/*
-	*	
-	*/
-	function get( $id = null ){
-		
+	
+	//Process the results from the read function
+	function readResultProcessor( $xml ){
 		$retArr = array();
-		//If the id is null
-		if( isset($id) ){
-			$xpathObj = $this->read( array('id'=>$id) );
-		}
-		else{
-			$xpathObj = $this->read();
-		}
 		
-		$size = count( $xpathObj->evaluate('/articles/article/title') );
+		$size = count( $xml->evaluate('/articles/article/title') );
 		//print_r($xpathObj);
 		
 		for( $i=1; $i <= $size; $i++){
 			array_push($retArr, array(
-				'title' => $xpathObj->getData("/articles/article[$i]/title"),
-				'body' => $xpathObj->getData("/articles/article[$i]/body")
+				'title' => $xml->getData("/articles/article[$i]/title"),
+				'body' => $xml->getData("/articles/article[$i]/body")
 				));
 		}
-			
+		
 		return $retArr;
 	}
+
 }
 
 ?>
